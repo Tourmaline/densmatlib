@@ -1,0 +1,41 @@
+\documentclass{amsart}
+
+\usepackage{color}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+
+\usepackage{mathtools}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{epstopdf}
+\usepackage{caption}
+\usepackage{subcaption}
+ \usepackage{amsmath}
+
+% Use small letters in labels. Ex.: (a), not (A)
+\captionsetup[subfigure]{labelfont=rm}
+\renewcommand{\thesubfigure}{\alph{subfigure}}
+
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+
+\title[short name]{long name}
+\author{Anastasia Kruchinina}
+\date{\today}
+\begin{document}
+\begin{abstract}
+...
+\end{abstract}
+\maketitle
+
+\tableofcontents
+
+
+\section{Introduction}
+
+
+Hello!~\cite{Label}
+
+\bibliography{biblio} \bibliographystyle{siam} % achemso, apsrev
+
+\end{document}
+
