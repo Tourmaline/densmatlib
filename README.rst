@@ -8,10 +8,7 @@ Purpose
 None yet
 
 
-.. |build-status| image::
-  https://travis-ci.org/Tourmaline/densmatlib.svg?branch=master
-    :alt: build status
-    :scale: 100%
+.. |build-status| .. image:: https://travis-ci.org/Tourmaline/densmatlib.svg?branch=master
     :target: https://travis-ci.org/Tourmaline/densmatlib
 
 .. |docs| image:: http://readthedocs.org/projects/densmatlib/badge/?version=latest
