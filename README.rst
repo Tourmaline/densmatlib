@@ -8,10 +8,11 @@ Purpose
 None yet
 
 
-.. |build-status| image:: https://img.shields.io/travis/rtfd/readthedocs.org.svg?style=flat
+.. |build-status| image::
+  https://travis-ci.org/Tourmaline/densmatlib.svg?branch=master
     :alt: build status
     :scale: 100%
-    :target: https://travis-ci.org/rtfd/readthedocs.org
+    :target: https://travis-ci.org/Tourmaline/densmatlib
 
 .. |docs| image:: http://readthedocs.org/projects/densmatlib/badge/?version=latest
     :alt: Documentation Status
