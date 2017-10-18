@@ -12,7 +12,7 @@ None yet
 https://travis-ci.org/Tourmaline/densmatlib.svg?branch=master
   :alt: Build Status
   :scale: 100%
-    :target: https://travis-ci.org/Tourmaline/densmatlib
+  :target: https://travis-ci.org/Tourmaline/densmatlib
 
 .. |docs| image:: http://readthedocs.org/projects/densmatlib/badge/?version=latest
     :alt: Documentation Status
