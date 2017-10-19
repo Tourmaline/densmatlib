@@ -25,6 +25,7 @@ sys.path.insert(0, os.path.abspath('./densmatlib'))
 sys.path.insert(0, os.path.abspath('../densmatlib'))
 sys.path.insert(0, os.path.abspath('./densmatlib/densematrix'))
 sys.path.insert(0, os.path.abspath('../densmatlib/densematrix'))
+sys.path.insert(0, os.path.abspath('../../../densmatlib'))
 
 
 # -- General configuration ------------------------------------------------
