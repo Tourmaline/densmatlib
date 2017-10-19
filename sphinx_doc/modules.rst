@@ -1,5 +1,5 @@
-densmatlib
-==========
+project_densmatlib
+==================
 
 .. toctree::
    :maxdepth: 4

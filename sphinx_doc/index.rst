@@ -11,8 +11,8 @@ Welcome to densmatlib documentation!
    :caption: Contents:
 
    modules
-   densematrix
-   recexpfns
+   densmatlib
+   densmatlib.densematrix
 
 
 Indices and tables
