@@ -22,6 +22,8 @@ import sys
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../densmatlib'))
+sys.path.insert(0, os.path.abspath('../../densmatlib/densematrix'))
 
 
 # -- General configuration ------------------------------------------------
