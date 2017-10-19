@@ -1,9 +1,10 @@
+import sys
+
 import numpy as np;
 from numpy import linalg as la;
 
 import densematrix 
 from densematrix import matfunctions as mf
-import sys
 
 
 def apply_polynomial(X, Xsq, poly):
@@ -63,11 +64,11 @@ def run_recursive_expansion(X, INPUT_INFO, totalOutput):
 
         # stop = check_stopping_criterion();
         stop = 0;
-        if normXmXsq < 0.000000001:
+        if normXmXsq < 1E-12:
             print('Stop iterations: i = {}'.format(i))
             stop = 1;
                 
-        totalOutput+=iterOutput.copy(); # make a deep copy of a dictionary
+        totalOutput.append(iterOutput.copy()); # make a deep copy of a dictionary
         
         if stop == 1:
             break;
@@ -78,7 +79,7 @@ def run_recursive_expansion(X, INPUT_INFO, totalOutput):
 
 
 
-TOL = 0.000001
+TOL = 1E-6
 
 def main():
     argc = len(sys.argv)
@@ -95,8 +96,8 @@ def main():
                     sys.exit()
     else:
         if argc == 1:
-            n=10;
-            nocc = 5;
+            n=100;
+            nocc = 50;
         else:
             print("Usage: {} n nocc".format(sys.argv[0]))
             sys.exit()
@@ -115,7 +116,6 @@ def main():
     
     OUTPUT_INFO = [];
     Xf = run_recursive_expansion(X, INPUT_INFO, OUTPUT_INFO);
-    print(len(OUTPUT_INFO))
     
     print('Done!')
     Xf_trace = Xf.mtrace();

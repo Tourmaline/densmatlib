@@ -1,7 +1,10 @@
 *.pyc
+densmatlib/*pyc
 densmatlib/densematrix/*pyc
 book
 *.coverage
 *.cache*
 __pycache__
+densmatlib/__pycache__
 densmatlib/densematrix/__pycache__
+htmlcov/

@@ -1,6 +1,7 @@
+import import_dirs
+
 import matfunctions as mf
 import numpy as np
-
 
 def test_create_empty():
     """ Create a zero matrix """

@@ -6,6 +6,6 @@ install:
         - pip install pytest pytest-cov
         - pip install coveralls
 script:
-        python tests/test_densmatlib.py -v --cov=densmatlib --cov-report=html
+        pytest -v --cov=densmatlib --cov-report=html
 after_success:
         - coveralls  

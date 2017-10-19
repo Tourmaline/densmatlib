@@ -1,26 +1,23 @@
-import sys
-sys.path.append('.')
-sys.path.append('..')
+import import_dirs
+
+import numpy as np
 
 import densmatlib
+from densmatlib import recexpfns as rexp
 from densmatlib import densematrix 
-from densmatlib.densematrix import matfunctions as dmat
+from densmatlib.densematrix import matfunctions as mf
 
-
-def test_create_genmatrix():
-    X = dmat.GeneralMatrix()
-    assert(X.size == 0)
-
-# def test_generate_random_matrix():
-#     X = dmat.rand_symm_matrix(5);
-#     assert(dmat.get_matrix_size(X) == 5)    
-
+def test_rec_exp():
+    n = 10
+    nocc = 4
+    D = list(np.linspace(0, 1, n))
+    X = mf.DenseSymmMatrix()
+    X.set_matrix(D)
     
-    
-def main():
-    test_generate_random_matrix()   
-    
-if __name__ == '__main__':
-    main()
-
+    INPUT_INFO = {}
+    INPUT_INFO['nocc'] = nocc;
+    OUTPUT_INFO = [];
+    Xf = rexp.run_recursive_expansion(X, INPUT_INFO, OUTPUT_INFO);
+    Xf_trace = Xf.mtrace();
+    assert(abs(Xf_trace - nocc) < 1E-5)
 
