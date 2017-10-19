@@ -8,3 +8,4 @@ __pycache__
 densmatlib/__pycache__
 densmatlib/densematrix/__pycache__
 htmlcov/
+sphinx_doc/_build

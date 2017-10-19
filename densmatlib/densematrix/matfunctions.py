@@ -1,5 +1,6 @@
 """
-Module for ...
+Module containing class DenseSymmMatrix representing a dense symmetric matrix and various operations on it.
+
 """
 
 import numpy as np
@@ -10,8 +11,18 @@ import numbers
 from numbers import Number
 
 class DenseSymmMatrix(object):
+    """
+    Class for dense symmetric matrix
+    """
     
     def __init__(self, inp = 0):
+        """
+        Initialize matrix
+        
+        :param int, optional n: size
+        :returns: symmetric matrix
+        :rtype: DenseSymmMatrix        
+        """
         if type(inp) is int:
             if inp < 0:
                 raise ValueError('Matrix size has to be non-negative')
@@ -21,12 +32,35 @@ class DenseSymmMatrix(object):
             raise ValueError('Input type should be int') 
                 
     def copy(self):
+        """
+        Create a copy of a matrix.
+
+        :returns: symmetric matrix
+        :rtype: DenseSymmMatrix
+        """
         return copy.deepcopy(self)
         
     def __len__(self):
+        """
+        Get matrix size
+        
+        :returns: matrix size
+        :rtype: int
+        """
         return self.size
         
     def set_matrix(self, A):
+        """
+        Create a DenseSymmMatrix from a given input:
+        
+        * if A is numpy.matrix or numpy.ndarray:
+            create matrix containing data from the array
+        * if A is list: create diagonal matrix with a diagonal from a list
+    
+        :param A: matrix or matrix diagonal
+        :returns: symmetric matrix
+        :rtype: DenseSymmMatrix
+        """
         if type(A) is np.matrix:
             self.X = A
             (n,m) = A.shape
@@ -45,6 +79,12 @@ class DenseSymmMatrix(object):
                 else: raise ValueError('Input type should be np.matrix, np.ndarray or list') 
             
     def get_matrix(self):
+        """
+        Get matrix as an numpy.array
+
+        :returns: matrix
+        :rtype: numpy.array
+        """
         return np.asarray(self.X).copy()
 
         
