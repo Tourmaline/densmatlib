@@ -5,13 +5,23 @@ Module for ...
 import numpy as np
 from numpy import linalg as la
 
+import copy
+import numbers
+from numbers import Number
+
 class DenseSymmMatrix(object):
     
-    def __init__(self, n = 0):
-        if n < 0:
-            raise ValueError('Matrix size has to be non-negative')
-        self.rand_symm_matrix(n)
-        self.size = n
+    def __init__(self, inp = 0):
+        if type(inp) is int:
+            if inp < 0:
+                raise ValueError('Matrix size has to be non-negative')
+            self.rand_symm_matrix(inp)
+            self.size = inp
+        else:
+            raise ValueError('Input type should be int') 
+                
+    def copy(self):
+        return copy.deepcopy(self)
         
     def __len__(self):
         return self.size
@@ -44,7 +54,7 @@ class DenseSymmMatrix(object):
     
         :param int n: matrix size
         :returns: random symmetric matrix
-        :rtype: array_like
+        :rtype: DenseSymmMatrix
         """
         self.X = np.asmatrix(np.random.rand(n,n));
         self.X = np.tril(self.X) + np.tril(self.X, -1).T;
@@ -54,17 +64,18 @@ class DenseSymmMatrix(object):
         Compute matrix square 
 
         :returns: matrix square
-        :rtype: array_like
+        :rtype: DenseSymmMatrix
         """
-        self.X = self.X**2;
+        Xsq = DenseSymmMatrix()
+        Xsq.set_matrix(self.X**2);
+        return Xsq
 
     def mtrace(self):
         """
         Compute matrix trace 
 
-        :returns: matrix square
-        :rtype: array_like
-        :raises AssertionError: raises an exception when matrix is not square
+        :returns: matrix trace
+        :rtype: float
         """
         return np.trace(self.X);    
     
@@ -76,7 +87,42 @@ class DenseSymmMatrix(object):
         :returns: spectral norm of the matrix difference 
         :rtype: float
         """
-        return la.norm(self.X-Y);
+        return la.norm((self-Y).X);
+        
+        
+    def __add__(self, V):
+        if type(V) is DenseSymmMatrix:
+            R = DenseSymmMatrix()
+            R.set_matrix(self.X+V.X);
+            return R
+        else:
+            raise TypeError("Input should be DenseSymmMatrix")
+    
+    def __sub__(self, V):
+        if type(V) is DenseSymmMatrix:
+            R = DenseSymmMatrix()
+            R.set_matrix(self.X-V.X);
+            return R
+        else:
+            raise TypeError("Input should be DenseSymmMatrix")
+    
+    def __mul__(self, v):
+        if isinstance(v, Number):
+            R = DenseSymmMatrix()
+            R.set_matrix(self.X*v);
+            return R    
+        else:
+            raise TypeError("Input should be integer")
+        return None
+    
+    def __rmul__(self, v):
+        if isinstance(v, Number):
+            R = DenseSymmMatrix()
+            R.set_matrix(v*self.X);
+            return R  
+        else:
+            raise TypeError("Input should be integer")
+        return None
         
         
         

@@ -1,4 +1,7 @@
 *.pyc
+densmatlib/densematrix/*pyc
 book
 *.coverage
 *.cache*
+__pycache__
+densmatlib/densematrix/__pycache__

@@ -6,9 +6,14 @@ import densmatlib
 from densmatlib import densematrix 
 from densmatlib.densematrix import matfunctions as dmat
 
-def test_generate_random_matrix():
-    X = dmat.rand_symm_matrix(5);
-    assert(dmat.get_matrix_size(X) == 5)    
+
+def test_create_genmatrix():
+    X = dmat.GeneralMatrix()
+    assert(X.size == 0)
+
+# def test_generate_random_matrix():
+#     X = dmat.rand_symm_matrix(5);
+#     assert(dmat.get_matrix_size(X) == 5)    
 
     
     

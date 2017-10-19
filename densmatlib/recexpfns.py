@@ -3,7 +3,7 @@ from numpy import linalg as la;
 
 import densematrix 
 from densematrix import matfunctions as mf
-
+import sys
 
 
 def apply_polynomial(X, Xsq, poly):
@@ -31,8 +31,8 @@ def plot_idemp_error(totalOutput):
 def get_polynomial(INPUT_INFO, X, Xsq):
     # if INPUT_INFO['poly_seq'] is given
     # return INPUT_INFO['poly_seq'][i]
-        Xtr = mf.mtrace(X);
-        Xsq_tr = mf.mtrace(Xsq);
+        Xtr = X.mtrace();
+        Xsq_tr = Xsq.mtrace();
         nocc = INPUT_INFO['nocc']
         if abs(Xsq_tr - nocc) < abs(2*Xtr - Xsq_tr - nocc):
             poly = 1;
@@ -46,7 +46,7 @@ def run_recursive_expansion(X, INPUT_INFO, totalOutput):
     """
     i = 1;
 
-    Xsq = mf.msquare(X);
+    Xsq = X.msquare();
 
     maxit=400;
     iterOutput = {};
@@ -54,8 +54,8 @@ def run_recursive_expansion(X, INPUT_INFO, totalOutput):
     while i < maxit:
         poly = get_polynomial(INPUT_INFO, X, Xsq)
         X=apply_polynomial(X, Xsq, poly);
-        Xsq = mf.msquare(X);
-        normXmXsq = mf.mnorm2_diff(X,Xsq);
+        Xsq = X.msquare();
+        normXmXsq = X.mnorm2_diff(Xsq);
         
         iterOutput['i'] = i;
         iterOutput['p'] = poly;
@@ -63,7 +63,7 @@ def run_recursive_expansion(X, INPUT_INFO, totalOutput):
 
         # stop = check_stopping_criterion();
         stop = 0;
-        if normXmXsq < 0.0000001:
+        if normXmXsq < 0.000000001:
             print('Stop iterations: i = {}'.format(i))
             stop = 1;
                 
@@ -81,13 +81,33 @@ def run_recursive_expansion(X, INPUT_INFO, totalOutput):
 TOL = 0.000001
 
 def main():
+    argc = len(sys.argv)
+    if argc == 3:
+        try:
+            n = int(sys.argv[1])
+        except ValueError: 
+                    print("{} : {} is not a number".format(sys.argv[0], sys.argv[1]))
+                    sys.exit()
+        try:
+            nocc = int(sys.argv[2])
+        except ValueError: 
+                    print("{} : {} is not a number".format(sys.argv[0], sys.argv[2]))
+                    sys.exit()
+    else:
+        if argc == 1:
+            n=10;
+            nocc = 5;
+        else:
+            print("Usage: {} n nocc".format(sys.argv[0]))
+            sys.exit()
     
-    # TODO: get input values from the command line
-    n=10;
-    nocc = 5;
+    print("Starting recursive expansion with parameters:")
+    print("  n    = {} ".format(n))
+    print("  nocc = {} ".format(nocc))
     
-    D = np.linspace(0, 1, n);
-    X = mf.diag_matrix(D);
+    D = list(np.linspace(0, 1, n))
+    X = mf.DenseSymmMatrix()
+    X.set_matrix(D)
     print('Created diagonal matrix.')
     
     INPUT_INFO = {}
@@ -98,7 +118,7 @@ def main():
     print(len(OUTPUT_INFO))
     
     print('Done!')
-    Xf_trace = mf.mtrace(X);
+    Xf_trace = Xf.mtrace();
     print('Iterations converged after {} iterations.'.format(len(OUTPUT_INFO)))
     print('Trace of the density matrix is {}'.format(Xf_trace))
     assert(abs(Xf_trace - nocc) < TOL)
