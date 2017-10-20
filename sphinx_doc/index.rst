@@ -4,15 +4,16 @@
    contain the root `toctree` directive.
 
 Welcome to densmatlib documentation!
-==============================================================
+=====================================
+
+
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
+   introduction
    modules
-   densmatlib
-   densmatlib.densematrix
 
 
 Indices and tables
