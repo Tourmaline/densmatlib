@@ -33,6 +33,39 @@
 \section{Introduction}
 
 
+>>> timeit.timeit('np.dot(A,A)', setup='import numpy as np; A = np.asmatrix(np.random.rand(8000, 8000));', number=1)
+16.677544459000046
+>>> timeit.timeit('A**2', setup='import numpy as np; A = np.asmatrix(np.random.rand(8000, 8000));', number=1)
+16.65360222100003
+
+using 2 cores
+
+
+
+
+
+
+
+>>> timeit.timeit('A+A', setup='import numpy as np; A = np.asmatrix(np.random.rand(8000, 8000));', number=1)
+0.08643362699990575
+>>> timeit.timeit('2*A', setup='import numpy as np; A = np.asmatrix(np.random.rand(8000, 8000));', number=1)
+0.9411706509999931
+>>> timeit.timeit('A+A', setup='import numpy as np; A = np.asmatrix(np.random.rand(20000, 20000));', number=1)
+0.5255228559999523
+>>> timeit.timeit('2*A', setup='import numpy as np; A = np.asmatrix(np.random.rand(20000, 20000));', number=1)
+5.227032694999934
+
+
+>>> timeit.timeit('A**2', setup='import numpy as np; A = np.asmatrix(np.random.rand(8000, 8000));', number=1)
+16.735214700999904
+>>> timeit.timeit('A+A-A**2', setup='import numpy as np; A = np.asmatrix(np.random.rand(8000, 8000));', number=1)
+16.932412583000087
+>>> timeit.timeit('2*A-A**2', setup='import numpy as np; A = np.asmatrix(np.random.rand(8000, 8000));', number=1)
+17.95151395599987
+
+
+
+
 Hello!~\cite{Label}
 
 \bibliography{biblio} \bibliographystyle{siam} % achemso, apsrev

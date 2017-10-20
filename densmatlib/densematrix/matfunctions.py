@@ -62,7 +62,7 @@ class DenseSymmMatrix(object):
         :rtype: DenseSymmMatrix
         """
         if type(A) is np.matrix:
-            self.X = A
+            self.X = A.copy()
             (n,m) = A.shape
             assert(n==m)
             self.size = n
@@ -71,7 +71,7 @@ class DenseSymmMatrix(object):
                 (n,m) = A.shape
                 assert(n==m)
                 self.size = n
-                self.X = np.asmatrix(A)  
+                self.X = np.matrix(A)  
             else: 
                 if type(A) is list:
                     self.X = np.diag(A)
@@ -96,7 +96,7 @@ class DenseSymmMatrix(object):
         :returns: random symmetric matrix
         :rtype: DenseSymmMatrix
         """
-        self.X = np.asmatrix(np.random.rand(n,n));
+        self.X = np.matrix(np.random.rand(n,n));
         self.X = np.tril(self.X) + np.tril(self.X, -1).T;
         
     def msquare(self):
@@ -107,7 +107,7 @@ class DenseSymmMatrix(object):
         :rtype: DenseSymmMatrix
         """
         Xsq = DenseSymmMatrix()
-        Xsq.set_matrix(self.X**2);
+        Xsq.set_matrix(self.X**2); # calling np.dot() [BLAS]
         return Xsq
 
     def mtrace(self):
@@ -127,7 +127,17 @@ class DenseSymmMatrix(object):
         :returns: spectral norm of the matrix difference 
         :rtype: float
         """
-        return la.norm((self-Y).X);
+        return la.norm((self-Y).X, 2);
+    
+    def mnormF_diff(self, Y):
+        """
+        Compute Frobenius norm of the matrix difference 
+
+        :param array_like Y: input matrix
+        :returns: Frobenius norm of the matrix difference 
+        :rtype: float
+        """
+        return la.norm((self-Y).X, 'fro');
         
         
     def __add__(self, V):
@@ -147,22 +157,30 @@ class DenseSymmMatrix(object):
             raise TypeError("Input should be DenseSymmMatrix")
     
     def __mul__(self, v):
-        if isinstance(v, Number):
+        if type(v) is int:
             R = DenseSymmMatrix()
-            R.set_matrix(self.X*v);
+            if v == 2: # use BLAS
+                R.set_matrix(self.X+self.X)
+            else:
+                R.set_matrix(v*self.X);
             return R    
         else:
-            raise TypeError("Input should be integer")
+            raise TypeError("Input should be a number")
         return None
     
     def __rmul__(self, v):
-        if isinstance(v, Number):
+        if type(v) is int:
             R = DenseSymmMatrix()
-            R.set_matrix(v*self.X);
+            if v == 2: # use BLAS
+                R.set_matrix(self.X+self.X)
+            else:
+                R.set_matrix(self.X*v);
             return R  
         else:
-            raise TypeError("Input should be integer")
+            raise TypeError("Input should be a number")
         return None
+        
+        
         
         
         

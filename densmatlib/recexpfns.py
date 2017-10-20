@@ -54,8 +54,10 @@ def run_recursive_expansion(X, INPUT_INFO, totalOutput):
     
     while i < maxit:
         poly = get_polynomial(INPUT_INFO, X, Xsq)
+        
         X=apply_polynomial(X, Xsq, poly);
         Xsq = X.msquare();
+        
         normXmXsq = X.mnorm2_diff(Xsq);
         
         iterOutput['i'] = i;
@@ -96,8 +98,8 @@ def main():
                     sys.exit()
     else:
         if argc == 1:
-            n=100;
-            nocc = 50;
+            n=4;
+            nocc = 2;
         else:
             print("Usage: {} n nocc".format(sys.argv[0]))
             sys.exit()
