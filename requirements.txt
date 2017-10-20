@@ -1,8 +1,2 @@
 # Install coloredlogs:
 numpy
-
-
-# Build PDF & ePub
-formats:
-    - epub
-    - pdf
