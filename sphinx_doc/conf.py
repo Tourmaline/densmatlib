@@ -46,7 +46,8 @@ templates_path = ['_templates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-source_suffix = ['.rst', '.md']
+# source_suffix = ['.rst', '.md']
+source_suffix = '.rst'
 
 # The master toctree document.
 master_doc = 'index'
@@ -130,17 +131,18 @@ htmlhelp_basename = 'Recursivedensitymatrixexpansiondoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
-
+latex_engine = 'xelatex'
 
 latex_elements = {
-    # fix missing index entry due to RTD doing only once pdflatex after makeindex
-    'printindex': r'''
-\IfFileExists{\jobname.ind}
-             {\footnotesize\raggedright\printindex}
-             {\begin{sphinxtheindex}\end{sphinxtheindex}}
-''',
+    # #The paper size ('letterpaper' or 'a4paper')
+    # 'papersize': 'letterpaper',
+    # #The font size ('10pt', '11pt' or '12pt').
+    # 'pointsize': '10pt',
+    # #Additional stuff for the LaTeX preamble.
+    # 'preamble': '',
+    # #Latex figure (float) alignment
+    # 'figure_align': 'htbp',
 }
-latex_show_urls = 'footnote'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
