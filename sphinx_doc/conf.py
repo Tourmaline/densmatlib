@@ -130,16 +130,17 @@ htmlhelp_basename = 'Recursivedensitymatrixexpansiondoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
+
+
 latex_elements = {
-    # #The paper size ('letterpaper' or 'a4paper')
-    # 'papersize': 'letterpaper',
-    # #The font size ('10pt', '11pt' or '12pt').
-    # 'pointsize': '10pt',
-    # #Additional stuff for the LaTeX preamble.
-    # 'preamble': '',
-    # #Latex figure (float) alignment
-    # 'figure_align': 'htbp',
+    # fix missing index entry due to RTD doing only once pdflatex after makeindex
+    'printindex': r'''
+\IfFileExists{\jobname.ind}
+             {\footnotesize\raggedright\printindex}
+             {\begin{sphinxtheindex}\end{sphinxtheindex}}
+''',
 }
+latex_show_urls = 'footnote'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
