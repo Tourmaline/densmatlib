@@ -5,6 +5,7 @@ python:
 install:
         - pip install pytest pytest-cov
         - pip install coveralls
+        - pip install matplotlib
 script:
         pytest -v --cov=densmatlib --cov-report=html
 after_success:
