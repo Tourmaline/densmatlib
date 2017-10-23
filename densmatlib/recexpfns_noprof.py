@@ -3,21 +3,15 @@ import sys
 import numpy as np;
 from numpy import linalg as la;
 
-import time
-
 import densematrix 
 from densematrix import matfunctions as mf
-
-import matplotlib.pyplot as plt
-from matplotlib.ticker import MaxNLocator
-
 
 
 def apply_polynomial(X, Xsq, poly):
     if poly == 1:
         X = Xsq;
     else:
-        X =X+X-Xsq;
+        X = 2*X-Xsq;
     return X 
 
 
@@ -27,9 +21,8 @@ def plot_idemp_error(totalOutput):
     for val in totalOutput:
         err.append(val['idemp_err']);
 
-    ax = plt.figure(1).gca()
+    import matplotlib.pyplot as plt
     plt.semilogy(err, 'r*-')
-    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     plt.xlabel('Iteration')
     plt.ylabel('Idempotency error')
     plt.grid(True)
@@ -37,6 +30,8 @@ def plot_idemp_error(totalOutput):
 
 
 def get_polynomial(INPUT_INFO, X, Xsq):
+    # if INPUT_INFO['poly_seq'] is given
+    # return INPUT_INFO['poly_seq'][i]
         Xtr = X.mtrace();
         Xsq_tr = Xsq.mtrace();
         nocc = INPUT_INFO['nocc']
@@ -45,20 +40,7 @@ def get_polynomial(INPUT_INFO, X, Xsq):
         else:
             poly = 0;
         return poly
-    
 
-# def precompute_poly_seq(X, homo, lumo):
-#     i = 1
-#     h = 1-homo
-#     l = lumo
-#     if homo > lumo:
-#         seq[i] = 0
-#     else
-#         seq[i] = 1
-#     return seq
-
-
-#@profile
 def run_recursive_expansion(X, INPUT_INFO, totalOutput):
     """
     Run recursive expansion for matrix X.
@@ -67,17 +49,16 @@ def run_recursive_expansion(X, INPUT_INFO, totalOutput):
 
     Xsq = X.msquare();
 
-    maxit=100;
+    maxit=400;
     iterOutput = {};
     
     while i < maxit:
         poly = get_polynomial(INPUT_INFO, X, Xsq)
         
         X=apply_polynomial(X, Xsq, poly);
-            
         Xsq = X.msquare();
         
-        normXmXsq = X.mnormF_diff(Xsq);
+        normXmXsq = X.mnorm2_diff(Xsq);
         
         iterOutput['i'] = i;
         iterOutput['p'] = poly;
@@ -127,27 +108,16 @@ def main():
     print("  n    = {} ".format(n))
     print("  nocc = {} ".format(nocc))
     
-    # D = list(np.linspace(0, 1, n))
-    # X = mf.DenseSymmMatrix()
-    # X.set_matrix(D)
-    # print('Created diagonal matrix.')
-    
-    gap = 0.1
-    homo = 0.5 + gap;
-    lumo = 0.5 - gap;
-    D = list(np.linspace(0, lumo, nocc)) + list(np.linspace(homo, 1, n-nocc))
+    D = list(np.linspace(0, 1, n))
     X = mf.DenseSymmMatrix()
-    X.rand_symm_matrix_given_eig(D)
-    print("Random symmetric matrix is generated.")
+    X.set_matrix(D)
+    print('Created diagonal matrix.')
     
     INPUT_INFO = {}
     INPUT_INFO['nocc'] = nocc;
     
     OUTPUT_INFO = [];
-    starttime = time.time()
     Xf = run_recursive_expansion(X, INPUT_INFO, OUTPUT_INFO);
-    endtime = time.time()
-    print("Time: {} sec".format(endtime-starttime))
     
     print('Done!')
     Xf_trace = Xf.mtrace();

@@ -41,7 +41,7 @@ def main():
     homo = 0.5 + gap;
     lumo = 0.5 - gap;
     nocc = n/2
-    D = list(np.linspace(0, lumo, nocc)) + list(np.linspace(homo, 1, nocc))
+    D = list(np.linspace(0, lumo, nocc)) + list(np.linspace(homo, 1, n-nocc))
     X = mf.DenseSymmMatrix()
     X.rand_symm_matrix_given_eig(D)
     print("Random symmetric matrix is generated.")

@@ -6,8 +6,6 @@ Module containing class DenseSymmMatrix representing a dense symmetric matrix an
 import numpy as np
 from numpy import linalg as la
 
-import time
-
 import copy
 import numbers
 from numbers import Number
@@ -100,7 +98,6 @@ class DenseSymmMatrix(object):
         """
         self.X = np.matrix(np.random.rand(n,n))
         self.X = np.tril(self.X) + np.tril(self.X, -1).T
-        self.size = n
         
     def rand_symm_matrix_given_eig(self, D):
         """
@@ -129,8 +126,7 @@ class DenseSymmMatrix(object):
         :rtype: DenseSymmMatrix
         """
         Xsq = DenseSymmMatrix()
-        Xsq.X = np.dot(self.X, self.X)
-        Xsq.size = self.size
+        Xsq.set_matrix(self.X**2); # calling np.dot() [BLAS]
         return Xsq
 
     def mtrace(self):
@@ -150,7 +146,7 @@ class DenseSymmMatrix(object):
         :returns: spectral norm of the matrix difference 
         :rtype: float
         """
-        return la.norm(self.X-Y.X, 2);
+        return la.norm((self-Y).X, 2);
     
     def mnormF_diff(self, Y):
         """
@@ -160,8 +156,7 @@ class DenseSymmMatrix(object):
         :returns: Frobenius norm of the matrix difference 
         :rtype: float
         """
-        T = self.X-Y.X
-        return la.norm(T, 'fro')
+        return la.norm((self-Y).X, 'fro');
         
     def get_eigv(self):
         """
@@ -173,8 +168,7 @@ class DenseSymmMatrix(object):
     def __add__(self, V):
         if type(V) is DenseSymmMatrix:
             R = DenseSymmMatrix()
-            R.X = self.X+V.X;
-            R.size = self.size
+            R.set_matrix(self.X+V.X);
             return R
         else:
             raise TypeError("Input should be DenseSymmMatrix")
@@ -182,8 +176,7 @@ class DenseSymmMatrix(object):
     def __sub__(self, V):
         if type(V) is DenseSymmMatrix:
             R = DenseSymmMatrix()
-            R.X = self.X-V.X;
-            R.size = self.size
+            R.set_matrix(self.X-V.X);
             return R
         else:
             raise TypeError("Input should be DenseSymmMatrix")
@@ -192,16 +185,15 @@ class DenseSymmMatrix(object):
         if type(v) is int:
             R = DenseSymmMatrix()
             if v == 2: # use BLAS
-                R.X = self.X+self.X
+                R.set_matrix(self.X+self.X)
             else:
-                R.X = v*self.X
-            R.size = self.size
+                R.set_matrix(v*self.X);
             return R    
         else:
             if type(v) is DenseSymmMatrix:
                 M = DenseSymmMatrix()
-                M.X = np.dot(v.X,self.X) 
-                M.size = self.size
+                varr = v.get_matrix()
+                M.set_matrix(np.dot(varr,self.X)); 
                 return M
             else:
                 raise TypeError("Input should be a number")
@@ -211,16 +203,15 @@ class DenseSymmMatrix(object):
         if type(v) is int:
             R = DenseSymmMatrix()
             if v == 2: # use BLAS
-                R.X = self.X+self.X
+                R.set_matrix(self.X+self.X)
             else:
-                R.X = self.X*v
-            R.size = self.size
+                R.set_matrix(self.X*v);
             return R  
         else:
             if type(v) is DenseSymmMatrix:
                 M = DenseSymmMatrix()
-                M.X=np.dot(self.X,v.X)
-                M.size = self.size
+                varr = v.get_matrix()
+                M.set_matrix(np.dot(self.X,varr)); 
                 return M
             else:
                 raise TypeError("Input should be a number")
