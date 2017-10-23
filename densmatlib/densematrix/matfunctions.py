@@ -96,8 +96,27 @@ class DenseSymmMatrix(object):
         :returns: random symmetric matrix
         :rtype: DenseSymmMatrix
         """
-        self.X = np.matrix(np.random.rand(n,n));
-        self.X = np.tril(self.X) + np.tril(self.X, -1).T;
+        self.X = np.matrix(np.random.rand(n,n))
+        self.X = np.tril(self.X) + np.tril(self.X, -1).T
+        
+    def rand_symm_matrix_given_eig(self, D):
+        """
+        Generate random symmetric matrix with a given eigenvalues
+    
+        :param list D: desired eigenvalues
+        :returns: random symmetric matrix
+        :rtype: DenseSymmMatrix
+        :raise LinAlgError: if qr factorization fails
+        """
+        n = len(D)
+        A = np.matrix(np.random.rand(n, n))
+        try:
+            Q, R = np.linalg.qr(A)
+        except(LinAlgError):
+            print("rand_symm_matrix_given_eig: QR factorization failed")
+            sys.exit()
+        self.X = np.dot(np.dot(Q, np.diag(D)), Q.T)
+        self.size = n
         
     def msquare(self):
         """
@@ -139,6 +158,12 @@ class DenseSymmMatrix(object):
         """
         return la.norm((self-Y).X, 'fro');
         
+    def get_eigv(self):
+        """
+        """
+        
+        # eigh: return the eigenvalues and eigenvectors of a Hermitian or symmetric matrix.
+        return la.eigh(self.X)
         
     def __add__(self, V):
         if type(V) is DenseSymmMatrix:
@@ -165,7 +190,13 @@ class DenseSymmMatrix(object):
                 R.set_matrix(v*self.X);
             return R    
         else:
-            raise TypeError("Input should be a number")
+            if type(v) is DenseSymmMatrix:
+                M = DenseSymmMatrix()
+                varr = v.get_matrix()
+                M.set_matrix(np.dot(varr,self.X)); 
+                return M
+            else:
+                raise TypeError("Input should be a number")
         return None
     
     def __rmul__(self, v):
@@ -177,7 +208,13 @@ class DenseSymmMatrix(object):
                 R.set_matrix(self.X*v);
             return R  
         else:
-            raise TypeError("Input should be a number")
+            if type(v) is DenseSymmMatrix:
+                M = DenseSymmMatrix()
+                varr = v.get_matrix()
+                M.set_matrix(np.dot(self.X,varr)); 
+                return M
+            else:
+                raise TypeError("Input should be a number")
         return None
         
         

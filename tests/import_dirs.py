@@ -1,4 +1,4 @@
-import sys
+import sys, os
 sys.path.append('.')
 sys.path.append('..')
 sys.path.append('densmatlib')

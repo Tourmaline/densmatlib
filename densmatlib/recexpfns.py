@@ -64,7 +64,7 @@ def run_recursive_expansion(X, INPUT_INFO, totalOutput):
         iterOutput['p'] = poly;
         iterOutput['idemp_err'] = normXmXsq;
 
-        # stop = check_stopping_criterion();
+        # stop = check_stopping_criterion
         stop = 0;
         if normXmXsq < 1E-12:
             print('Stop iterations: i = {}'.format(i))
