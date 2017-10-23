@@ -14,6 +14,7 @@ Welcome to densmatlib documentation!
 
    introduction
    modules
+   howto
 
 
 Indices and tables
