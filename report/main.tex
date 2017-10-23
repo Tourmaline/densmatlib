@@ -66,9 +66,73 @@ using 2 cores
 
 
 
-Hello!~\cite{Label}
+\section{Profiling of the recursive expansion code}
 
-\bibliography{biblio} \bibliographystyle{siam} % achemso, apsrev
+Use pip install line_profiler
+
+kernprof -l -v recexpfns.py 1000 500
+
+Total time: 11.0999 s
+
+Using spectral norm:
+============================
+51         1         3533   3533.0      0.0      Xsq = X.msquare();
+52                                           
+53         1            2      2.0      0.0      maxit=400;
+54         1            0      0.0      0.0      iterOutput = {};
+55                                               
+56        42           36      0.9      0.0      while i < maxit:
+57        42         3477     82.8      0.0          poly = get_polynomial(INPUT_INFO, X, Xsq)
+58                                                   
+59        42       136144   3241.5      1.2          X=apply_polynomial(X, Xsq, poly);
+60        42      1303582  31037.7     11.7          Xsq = X.msquare();
+61                                                   
+62        42      9652481 229821.0     87.0          normXmXsq = X.mnorm2_diff(Xsq);
+============================
+
+Using Frobenius norm:
+============================
+51         1         3622   3622.0      0.2      Xsq = X.msquare();
+52                                           
+53         1            2      2.0      0.0      maxit=400;
+54         1            0      0.0      0.0      iterOutput = {};
+55                                               
+56        42           33      0.8      0.0      while i < maxit:
+57        42         3420     81.4      0.2          poly = get_polynomial(INPUT_INFO, X, Xsq)
+58                                                   
+59        42       125580   2990.0      8.1          X=apply_polynomial(X, Xsq, poly);
+60        42      1260461  30011.0     81.6          Xsq = X.msquare();
+61                                                   
+62        42       151310   3602.6      9.8          normXmXsq = X.mnormF_diff(Xsq);
+============================
+
+
+\subsection{Testing}
+
+python compare.py 1000 0.2
+Starting computations with parameters:
+  n    = 1000 
+  gap = 0.2 
+Random symmetric matrix is generated.
+Density matrix computation using diagonalization took 0.20430660247802734 sec
+Stop iterations: i = 14
+Density matrix computation using recursive expansion took 3.8627514839172363 sec
+Compare obtained matrices...
+OK!
+
+
+python compare.py 1000 0.2
+Starting computations with parameters:
+  n    = 1000 
+  gap = 0.2 
+Random symmetric matrix is generated.
+Density matrix computation using diagonalization took 0.20570755004882812 sec
+Stop iterations: i = 14
+Density matrix computation using recursive expansion took 0.6027190685272217 sec
+Compare obtained matrices...
+OK!
+
+
 
 \end{document}
 
