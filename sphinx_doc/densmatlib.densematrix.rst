@@ -11,12 +11,3 @@ densmatlib\.densematrix\.matfunctions module
     :members:
     :undoc-members:
     :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: densmatlib.densematrix
-    :members:
-    :undoc-members:
-    :show-inheritance:

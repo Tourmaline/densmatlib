@@ -18,12 +18,3 @@ densmatlib\.recexpfns module
     :members:
     :undoc-members:
     :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: densmatlib
-    :members:
-    :undoc-members:
-    :show-inheritance:

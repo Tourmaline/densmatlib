@@ -6,16 +6,18 @@
 Welcome to densmatlib documentation!
 =====================================
 
-
+The *densmatlib* is a final project for the course `Computational Python 2017 <http://comppy-info.readthedocs.io/en/latest/index.html>`__. The goal of the project is to get hands on programming in Python and Python's main libraries.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Contents:
 
    introduction
-   modules
    howto
-
+   writing_docs
+   modules
+   results
+   
 
 Indices and tables
 ==================
