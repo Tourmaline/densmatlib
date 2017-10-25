@@ -5,7 +5,10 @@ Welcome to densmatlib !!
 
 Purpose
 -------
-None yet
+
+The densmatlib is a final project for the course Computational Python 2017. The goal of the project is to get hands on programming in Python and Python’s main libraries.
+
+Package densmatlib implements recursive expansion for computation of the density matrix. See more details on `Read the Docs  <http://densmatlib.readthedocs.io/en/latest/?badge=latest>`__ documentation page.
 
 
 .. |build-status| image:: https://travis-ci.org/Tourmaline/densmatlib.svg?branch=master
