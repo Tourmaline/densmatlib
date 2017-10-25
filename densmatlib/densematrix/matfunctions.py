@@ -165,6 +165,10 @@ class DenseSymmMatrix(object):
         
     def get_eigv(self):
         """
+        Compute eigenvalues and eigenvectors of the matrix.
+        
+        :returns: tuple (eigenvalues, eigenvectors)
+        :rtype: tuple 
         """
         
         # eigh: return the eigenvalues and eigenvectors of a Hermitian or symmetric matrix.

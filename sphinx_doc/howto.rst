@@ -69,6 +69,48 @@ We have noticed interesting timing result comparing operations A+A and 2*A, whic
 Our guess is that A+A function is calling optimized BLAS routine, however, 2*A does not do it. Moreover, looking at the top output, it seems that our implementation of numpy is utilizing multiple threads for 2*A operation, but not for A+A. 
 
 
+.. _prog_in_python:
+
+Profiling
+---------
+
+In this project we use module **line_profiler** for doing line-by-line profiling of functions. 
+
+To install it, run:
+
+.. code-block:: bash
+
+  $ pip install line_profiler
+
+
+To enable profiling of a particular function, add decorator @profile above the function. Now, to get the profiling results we run script *kernprof* as following:
+
+.. code-block:: bash
+
+  $ kernprof -l -v your_module.py [args]
+  
+  
+Example output (part):
+
+.. code-block:: text
+
+  51         1         3622   3622.0      0.2      Xsq = X.msquare();
+  52                                           
+  53         1            2      2.0      0.0      maxit=400;
+  54         1            0      0.0      0.0      iterOutput = {};
+  55                                               
+  56        42           33      0.8      0.0      while i < maxit:
+  57        42         3420     81.4      0.2          poly = get_polynomial(INPUT_INFO, X, Xsq)
+  58                                                   
+  59        42       125580   2990.0      8.1          X=apply_polynomial(X, Xsq, poly);
+  60        42      1260461  30011.0     81.6          Xsq = X.msquare();
+  61                                                   
+  62        42       151310   3602.6      9.8          normXmXsq = X.mnormF_diff(Xsq);
+
+
+This results show that the most time consuming operation was matrix-matrix square, taking almost 81.6% of the total execution time.
+
+
 
 Continuous integration with Travis and Coveralls
 ----------------------------------------------------
