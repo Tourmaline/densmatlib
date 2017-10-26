@@ -112,12 +112,39 @@ This results show that the most time consuming operation was matrix-matrix squar
 
 
 
-Continuous integration with Travis and Coveralls
+Continuous integration with Travis CI and Coveralls
 ----------------------------------------------------
 
-`Travis CI <https://travis-ci.org>`__
+**Continuous Integration is the practice of merging in small code changes frequently - rather than merging in a large change at the end of a development cycle.** (see `Continuous Integration <https://docs.travis-ci.com/user/for-beginners/#What-is-Continuous-Integration-(CI)%3F>`__)
+
+There are plenty of online sources on how to manage continuous integration of the code with specialized tools. In this project we used `Travis CI <https://travis-ci.org>`__ and `Coveralls <https://coveralls.io/>`__. You can see badges in our github page showing the status of the latest build.
 
 
+Travis CI best practices
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Commits that have [ci skip] or [skip ci] anywhere in the commit messages are
+  ignored by Travis CI
+
+* Each build runs in one of the virtual environments provided by Travis CI. At
+  this point there are supported a very limited number Linux distributions and OS X. The current default distribution is Ubuntu Trusty 14.04 (see `Build Environment Overview <https://docs.travis-ci.com/user/reference/overview/>`__).
+
+* M. Beller, G. Gousios and A. Zaidman, "Oops, My Tests Broke the Build: An
+  Explorative Analysis of Travis CI with GitHub," 2017 IEEE/ACM 14th International Conference on Mining Software Repositories (MSR), Buenos Aires, 2017, pp. 356-367, doi: 10.1109/MSR.2017.62, `URL <http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7962385&isnumber=7962336>`__.
+
+*Online references:*
+
+* http://eng.localytics.com/best-practices-and-common-mistakes-with-travis-ci/
+* https://docs.travis-ci.com/user/customizing-the-build
+* Some  notes about security:   
+  https://docs.travis-ci.com/user/best-practices-security/
+* http://docs.python-guide.org/en/latest/scenarios/ci/
+
+
+Coveralls with Python
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* https://coveralls.zendesk.com/hc/en-us/articles/201342869-Python
 
 
 
