@@ -54,14 +54,14 @@ The polynomials and condition for selecting polynomials applied in each iteratio
 With this approach, if matrices are sufficiently sparse, the *linear scaling computational cost* may be achieved. The sparsity of intermediate matrices  is usually ensured by removing small matrix elements during the course of the recursive expansion. We note again, that here we focus on the dense matrices, thus no truncation is performed.
 
 
-References
------------
+Example of a quantum chemistry program
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As an example of the code performing realistic electronic structure calculations we provide `ErgoSCF <http://www.ergoscf.org/>`__. It is a quantum chemistry program for large-scale self-consistent field calculations, in particular it implements density matrix computation using recursive expansion and utilizing sparsity structure of matrices.
+
 
 .. [1] Roothaan, C. C. J. Rev. Mod. Phys. 1951, 23, 69–89.
 .. [2] Hohenberg, P.; Kohn, W. Phys. Rev. 1964, 136, B864–B871.
 .. [3] Kohn, W.; Sham, L. J. Phys. Rev. 1965, 140, 1133.
 .. [4] Kruchinina, A.; Rudberg, E.; Rubensson, E. H. J. Chem. Theory Comput. 2016, 12, 5788–5802
-
-
-
 
