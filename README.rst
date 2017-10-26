@@ -1,7 +1,7 @@
 Welcome to densmatlib !!
 ========================
 
-|build-status| |docs|
+|build-status| |coveralls-status| |docs|
 
 Purpose
 -------
@@ -16,6 +16,11 @@ Package densmatlib implements recursive expansion for computation of the density
       :scale: 100%
       :target: https://travis-ci.org/Tourmaline/densmatlib
   
+  
+.. |coveralls-status| image:: https://coveralls.io/repos/github/Tourmaline/densmatlib/badge.svg
+      :alt: Coveralls Status
+      :scale: 100%
+      :target: https://coveralls.io/github/Tourmaline/densmatlib
 
 .. |docs| image:: https://readthedocs.org/projects/densmatlib/badge/?version=latest
     :alt: Documentation Status
